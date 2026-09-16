@@ -89,10 +89,6 @@ Those files stay fully functional on disk. Every skill reads them normally. Git 
 
 Use a **second private repository** for the data, this one is for tooling.
 
-```bash
-gh repo edit <owner>/<repo> --visibility private --accept-visibility-change-consequences
-```
-
 Regardless of model: never commit government IDs, account numbers, or passwords. No skill here needs them.
 
 ---
