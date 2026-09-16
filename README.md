@@ -87,19 +87,11 @@ Those files stay fully functional on disk. Every skill reads them normally. Git 
 
 `CLAUDE.md` **is** tracked, deliberately: it holds the rules, voice, and conventions, which are worth version-controlling and contain nothing personal. The personal half lives in `profile/constraints.md` and reaches every session through an `@profile/constraints.md` import. Keep that boundary — a fact typed directly into `CLAUDE.md` is a fact staged for publication.
 
-**Two consequences, stated plainly:**
-
-**You give up the audit trail.** An earlier version of this design treated git as the record of every application — `git log jobs/` telling you exactly what you sent to whom. With `jobs/` and `tracker.md` ignored, that history does not exist, and neither does a backup. Your applications live in exactly one place. If you want both the public tooling *and* a versioned record, use a **second private repository** for the data and keep this one for the tooling.
-
-**`.gitignore` does not untrack what git already tracks.** If you have already committed a personal file, adding it to `.gitignore` changes nothing — the data sits in history and a push publishes it. Removing it requires rewriting history (`git rm --cached` plus a fresh commit, or an orphan branch), not just ignoring it going forward.
-
-**If you'd rather keep everything in one repo, make it private first:**
+Use a **second private repository** for the data, this one is for tooling.
 
 ```bash
 gh repo edit <owner>/<repo> --visibility private --accept-visibility-change-consequences
 ```
-
-Then delete the three personal paths from `.gitignore`. Either model is fine. Choosing neither — a public repo with personal data tracked — is the one that hurts.
 
 Regardless of model: never commit government IDs, account numbers, or passwords. No skill here needs them.
 
