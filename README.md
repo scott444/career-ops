@@ -51,43 +51,73 @@ career-ops/
     └── ats_keywords.py            # extracts JD keywords, scores a resume (stdlib only)
 ```
 
-Local-only — created by you, never committed:
+Never committed *here* — junctions into the private repo, where they are versioned:
 
 ```
-├── profile/
-│   ├── constraints.md             # personal facts CLAUDE.md imports; never committed
+├── profile/                       # --> career-ops-private/profile
+│   ├── constraints.md             # personal facts CLAUDE.md imports
 │   ├── master-resume.md           # everything you've ever done; never sent as-is
 │   ├── achievements.md            # STAR accomplishment bank with metrics
 │   ├── linkedin-current.md        # your profile as it exists today
 │   └── targets.md                 # roles, comp floor, location, dealbreakers
-├── jobs/
-│   └── 2026-09-16-acme-staff-swe/ # one folder per application
-│       ├── jd.md                  # the job description, verbatim
-│       ├── analysis.md            # output of /analyze-job
-│       ├── resume.md              # output of /tailor-resume
-│       ├── resume.pdf             # built by scripts/build-pdf.sh
-│       ├── cover.md               # optional
-│       └── notes.md               # contacts, interview notes, follow-ups
-└── tracker.md                     # pipeline table
+└── jobs/                          # --> career-ops-private/jobs
+    ├── 2026-09-16-acme-staff-swe/ # one folder per application
+    │   ├── jd.md                  # the job description, verbatim
+    │   ├── analysis.md            # output of /analyze-job
+    │   ├── resume.md              # output of /tailor-resume
+    │   ├── resume.pdf             # built by scripts/build-pdf.sh
+    │   ├── cover.md               # optional
+    │   └── notes.md               # contacts, interview notes, follow-ups
+    └── tracker.md                 # pipeline table
 ```
+
+`profile/` and `jobs/` are not directories in this repo — they are Windows
+junctions into the sibling private repo `career-ops-private`, where that data
+is versioned. See §3.
 
 ---
 
 ## 3. The privacy model — read this before you push anything
 
-**This repository is public, and it holds only tooling.** `.gitignore` excludes three paths, and they hold every fact about a person:
+**This repository is public, and it holds only tooling.** `.gitignore` excludes the paths that hold every fact about a person:
 
 | Path | Why it's excluded |
 |---|---|
 | `profile/` | Full work history, compensation floor, positioning strategy — including `constraints.md`, the personal facts `CLAUDE.md` imports |
 | `jobs/` | Job descriptions, tailored resumes, named contacts, interview notes |
-| `tracker.md` | Which companies you're talking to and how far along you are |
+| `jobs/tracker.md` | Which companies you're talking to and how far along you are |
 
-Those files stay fully functional on disk. Every skill reads them normally. Git simply cannot see them.
+Those files stay fully functional on disk. Every skill reads them normally. Git here simply cannot see them.
 
 `CLAUDE.md` **is** tracked, deliberately: it holds the rules, voice, and conventions, which are worth version-controlling and contain nothing personal. The personal half lives in `profile/constraints.md` and reaches every session through an `@profile/constraints.md` import. Keep that boundary — a fact typed directly into `CLAUDE.md` is a fact staged for publication.
 
-Use a **second private repository** for the data, this one is for tooling.
+Use a **second private repository** for the data, this one is for tooling. That
+repo is `career-ops-private`, cloned as a sibling of this one. The personal
+directories are junctions into it:
+
+```
+career-ops/profile  -->  career-ops-private/profile
+career-ops/jobs     -->  career-ops-private/jobs   (contains tracker.md)
+```
+
+A junction is a link, not a copy: there is one set of files, reachable from
+either path, so the two repos can never drift. Edit through `career-ops/` as
+always, then commit from `../career-ops-private`.
+
+Recreate the junctions after a fresh clone — they are a filesystem feature, not
+a git one — from `career-ops` in `cmd`, no administrator rights required:
+
+```
+mklink /J profile ..\career-ops-private\profile
+mklink /J jobs    ..\career-ops-private\jobs
+```
+
+Link *directories*, never individual files. A file-level link does not survive
+editing: most tools write a temp file and rename it over the target, replacing
+the link with an ordinary file, after which the two copies diverge silently and
+nothing reports an error. A junction is immune because the rename happens inside
+the linked directory rather than over the link. That is why `tracker.md` sits in
+`jobs/` rather than at the repo root.
 
 Regardless of model: never commit government IDs, account numbers, or passwords. No skill here needs them.
 
@@ -149,7 +179,9 @@ Because the personal files are gitignored, **a fresh clone does not contain them
 
 This is the section people skip and then regret. If something about your history could be smoothed over by a helpful model — a gap, one employer, a pivot — write it down as a hard constraint. Stating the truth once is far cheaper than catching a plausible fabrication in every draft.
 
-Two properties make this safe by construction: the file sits under `profile/`, which is gitignored wholesale, and `career-profile` reads it directly as well as through the import, so the constraints survive even if the import fails to resolve.
+Two properties make this safe by construction: the file sits under `profile/`, which is gitignored wholesale here and versioned only in the private repo, and `career-profile` reads it directly as well as through the import, so the constraints survive even if the import fails to resolve.
+
+If the import ever fails to resolve, the junctions are missing — clone `career-ops-private` as a sibling and recreate them per §3. Never rebuild `constraints.md` from memory; an invented constraints file is worse than none.
 
 ### 4.4 — Build the profile (the step that actually matters)
 
@@ -160,7 +192,7 @@ Everything downstream is only as good as `profile/`. Create four files:
 3. **`profile/targets.md`** — titles you want, titles you'd accept, industries, comp floor, location, must-haves, dealbreakers, companies to avoid. `/analyze-job` scores against this file, so honesty about the floor is what makes a blunt 5/10 useful.
 4. **`profile/achievements.md`** — leave empty. `/mine-achievements` fills it.
 
-Then create `tracker.md`:
+Then create `jobs/tracker.md`:
 
 ```markdown
 # Pipeline

@@ -10,10 +10,12 @@
 # constraints.md (the personal facts CLAUDE.md imports)
 profile/
 
-# per-application folders: JDs, resumes, contacts, notes
+# per-application folders (JDs, resumes, contacts, notes) and jobs/tracker.md,
+# the pipeline table of companies, statuses and contact names
 jobs/
 
-# pipeline: companies, statuses, contact names
+# Redundant since tracker.md moved under jobs/, but kept deliberately: if a
+# stray tracker.md is ever recreated at the repo root, it stays out of git.
 tracker.md
 
 # Build artifacts

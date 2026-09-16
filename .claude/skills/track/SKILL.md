@@ -1,12 +1,12 @@
 ---
 name: track
-description: Update tracker.md with application status, next action, and dates. Shows the pipeline on request.
+description: Update jobs/tracker.md with application status, next action, and dates. Shows the pipeline on request.
 disable-model-invocation: true
 argument-hint: [job folder] [status] [note]  — or "show"
 ---
 
 ## Current tracker
-!`cat tracker.md`
+!`cat jobs/tracker.md`
 
 If $ARGUMENTS is "show": summarize the pipeline — counts by status, anything
 with a next-action date in the past, anything untouched for 7+ days.
@@ -14,5 +14,7 @@ with a next-action date in the past, anything untouched for 7+ days.
 Otherwise update the row for jobs/$0 (create it if missing):
 | Date applied | Company | Role | Folder | Status | Fit | Next action | Due | Last touch |
 Status values: researching, applied, screen, technical, onsite, offer, rejected, withdrawn.
-Set Last touch to today. Then git commit tracker.md and the job folder with
-message "track: <company> <role> → <status>".
+Set Last touch to today. Then commit the tracker and the job folder with message
+"track: <company> <role> → <status>". They are not in this repo — `jobs/` is a
+junction, so the files live in career-ops-private and the commit belongs there:
+`git -C ../career-ops-private add jobs && git -C ../career-ops-private commit`.

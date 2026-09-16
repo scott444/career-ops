@@ -1,30 +1,37 @@
 # Career Ops
 
 This repo manages my job search. Source of truth is `profile/`. Per-application
-work lives in `jobs/<date>-<company>-<role>/`. Pipeline status is in `tracker.md`.
+work lives in `jobs/<date>-<company>-<role>/`. Pipeline status is in
+`jobs/tracker.md`.
 
 ## Personal constraints
 
 @profile/constraints.md
 
 > The import above carries every fact about me: employment history, presentation
-> decisions, and target role. It is gitignored and machine-local.
+> decisions, and target role. It is gitignored here; the file itself lives in the
+> private repo and `profile/` is a junction pointing at it.
 >
 > **This file (CLAUDE.md) is tracked in git and this repo is public.** Never
 > inline a personal fact here — no employer, school, date, location, or comp
 > figure. Those belong in profile/constraints.md.
 >
-> If the import does not resolve (a fresh clone has no profile/), create the file
-> from the template in README §4.3 before running any skill. Do not proceed
-> without it: the constraints are what stop a skill from inventing a tidier
-> version of someone's history.
+> If the import does not resolve, the junctions are missing — clone
+> career-ops-private alongside this repo and recreate them (see README §4.3).
+> Do not proceed without it, and never reconstruct constraints.md from memory or
+> from anything else in this repo: the constraints are what stop a skill from
+> inventing a tidier version of someone's history.
 
 **Tracked in git (public)** README.md, this file, `.gitignore`,
 `.claude/settings.json`, nine `.claude/skills/*/SKILL.md`, `templates/resume.html`,
 and three scripts (`build-pdf.sh`, `build-pdf.ps1`, `ats_keywords.py`).
 
-**Local only, never committed.** `profile/`, `jobs/`, `tracker.md`. These hold
-every personal fact. `.gitignore` excludes all three wholesale.
+**Never committed here.** `profile/` and `jobs/` (which contains `tracker.md`)
+hold every personal fact. `.gitignore` excludes both wholesale. They are not
+directories in this repo — they are Windows junctions into the sibling private
+repo `career-ops-private`, which is where that data is versioned and backed up.
+Editing through the junction edits the real file; commit those changes from
+`../career-ops-private`, never from here.
 
 **Skills: nine, all passing `claude plugin validate .claude/skills`.** Eight are
 slash commands; `career-profile` is `user-invocable: false` and loads on its own
@@ -56,9 +63,11 @@ personal is staged.
   master-resume.md as a side effect of tailoring.
 - Draft outreach and LinkedIn copy for me to paste. Do not attempt to post,
   message, or scrape LinkedIn or job boards.
-- Before writing to jobs/ or tracker.md, tell me the file path you're writing.
-- Never commit a personal fact to this repo. If something belongs in git, it goes
-  in a tracked file and contains no fact about a person.
+- Before writing to profile/ or jobs/ (including jobs/tracker.md), tell me the
+  file path you're writing. Those paths cross a junction into the private repo.
+- Never commit a personal fact to this repo. If something belongs in git here, it
+  goes in a tracked file and contains no fact about a person. Personal facts are
+  committed to career-ops-private instead.
 
 ## Voice
 - Direct, specific, first person on LinkedIn; implied first person on resume.
