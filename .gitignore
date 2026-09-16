@@ -1,0 +1,26 @@
+# ---------------------------------------------------------------------------
+# PERSONAL DATA — this repository's remote is PUBLIC.
+# Everything below stays on this machine only. Do not remove these lines
+# without first making the GitHub repo private.
+# NOTE: gitignore does not support trailing comments. Keep comments on their
+# own lines or the pattern silently matches nothing.
+# ---------------------------------------------------------------------------
+
+# master resume, achievements, LinkedIn copy, comp targets, and
+# constraints.md (the personal facts CLAUDE.md imports)
+profile/
+
+# per-application folders: JDs, resumes, contacts, notes
+jobs/
+
+# pipeline: companies, statuses, contact names
+tracker.md
+
+# Build artifacts
+*.pdf
+*.html
+!templates/*.html
+
+# Local overrides
+.claude/settings.local.json
+.DS_Store

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>$title$</title>
+<style>
+  /* Single column, system fonts, no tables, no icons — parses cleanly in ATS. */
+  @page { size: letter; margin: 0.5in 0.6in; }
+  body {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 10.5pt;
+    line-height: 1.35;
+    color: #111;
+    margin: 0;
+    max-width: 7.3in;
+  }
+  h1 {
+    font-size: 17pt;
+    margin: 0 0 2pt 0;
+    letter-spacing: 0.3pt;
+  }
+  /* The contact line and headline that follow H1 */
+  h1 + p { margin: 0 0 8pt 0; font-size: 9.5pt; color: #333; }
+  h2 {
+    font-size: 11pt;
+    text-transform: uppercase;
+    letter-spacing: 0.6pt;
+    border-bottom: 1px solid #999;
+    padding-bottom: 2pt;
+    margin: 13pt 0 6pt 0;
+  }
+  h3 { font-size: 10.5pt; margin: 8pt 0 1pt 0; }
+  p { margin: 0 0 5pt 0; }
+  ul { margin: 3pt 0 6pt 0; padding-left: 16pt; }
+  li { margin-bottom: 2.5pt; }
+  a { color: #111; text-decoration: none; }
+  strong { font-weight: bold; }
+  /* Avoid orphaned role headings at a page break */
+  h2, h3 { page-break-after: avoid; }
+  li { page-break-inside: avoid; }
+</style>
+</head>
+<body>
+$body$
+</body>
+</html>
