@@ -24,7 +24,15 @@ work lives in `jobs/<date>-<company>-<role>/`. Pipeline status is in
 
 **Tracked in git (public)** README.md, this file, `.gitignore`,
 `.claude/settings.json`, nine `.claude/skills/*/SKILL.md`, `templates/resume.html`,
-and three scripts (`build-pdf.sh`, `build-pdf.ps1`, `ats_keywords.py`).
+three scripts (`build-pdf.sh`, `build-pdf.ps1`, `ats_keywords.py`), and
+`example/`.
+
+**`example/` is entirely fictional and is tracked on purpose.** It is a complete
+worked application — sample profile, JD, analysis, resume, built PDF, ATS check,
+outreach, interview prep. Alex Rivera is not a real person. Never put a real fact
+in it, never copy anything from `profile/` into it, and never quote it as
+evidence about me. If the example needs updating, regenerate it from its own
+sample profile.
 
 **Never committed here.** `profile/` and `jobs/` (which contains `tracker.md`)
 hold every personal fact. `.gitignore` excludes both wholesale. They are not

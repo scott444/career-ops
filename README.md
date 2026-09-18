@@ -6,6 +6,8 @@ A repo-as-workspace design. Every skill reads from one source of truth (your mas
 
 Clone it, bootstrap your own profile, and it works. Budget about 90 minutes, most of it spent on the one step that matters — mining your real accomplishments.
 
+**→ See it before you install anything: [`example/`](example/) is one complete application, start to finish** — profile, job description, fit analysis, tailored resume, [the built PDF](example/jobs-sample/2026-09-02-harborline-staff-platform-engineer/resume.pdf), ATS check, recruiter drafts, and interview prep. Fictional person, real output. It shows what the tooling refuses to do as clearly as what it does: keyword coverage stops at an honest 70%, a near-miss claim about mentoring is caught and kept true, and three interview questions with no supporting story are flagged instead of answered.
+
 ---
 
 ## 1. Design principles
@@ -43,6 +45,11 @@ career-ops/
 │       ├── outreach/              # /outreach — recruiter / referral / hiring-manager notes
 │       ├── interview-prep/        # /interview-prep — questions + STAR answers for a job
 │       └── track/                 # /track — update the pipeline tracker
+├── example/                       # worked example — fictional, tracked on purpose
+│   ├── README.md                  # the walkthrough; start here
+│   ├── profile-sample/            # what profile/ looks like, filled in
+│   ├── jobs-sample/<one job>/     # jd, analysis, resume, resume.pdf, ats-check, notes, prep
+│   └── tracker-sample.md          # what the pipeline table looks like in use
 ├── templates/
 │   └── resume.html                # pandoc template for PDF export
 └── scripts/

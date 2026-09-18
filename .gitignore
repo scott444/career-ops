@@ -23,6 +23,11 @@ tracker.md
 *.html
 !templates/*.html
 
+# The worked example is tracked on purpose: it is fictional, and the built PDF
+# is the point of it — someone evaluating this repo should see the output
+# without installing pandoc. The intermediate resume.html stays ignored.
+!example/**/*.pdf
+
 # Local overrides
 .claude/settings.local.json
 .DS_Store
